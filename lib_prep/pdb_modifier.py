@@ -1,9 +1,12 @@
-class PDBModifier:
-    def __init__(self, in_pdb):
+class PDB:
+    def __init__(self, in_pdb, chain="L", resname="LIG", resnum="   1"):
         self.in_pdb = in_pdb
         self.content = self.read_content_as_str()
         self.lines = self.read_content_as_lines()
         self.atom_section = self.read_atoms_section_as_str()
+        self.chain = chain
+        self.resname = resname
+        self.resnum = resnum
 
     def read_content_as_str(self):
         with open(self.in_pdb) as infile:
@@ -18,12 +21,28 @@ class PDBModifier:
     def read_atoms_section(self):
         atoms_sect = []
         for line in self.lines:
-            if "ATOM" or "HETATM" in line[0:6]:
+            if "ATOM" in line[0:4] or "HETATM" in line[0:6]:
                 atoms_sect.append(line)
         return atoms_sect
 
     def read_atoms_section_as_str(self):
         return "\n".join(self.read_atoms_section())
+
+    def modify_pdb(self):
+        pdb_atom_lines = self.read_atoms_section()
+        new_pdb = []
+        for line in pdb_atom_lines:
+            line2 = set_resname_to_line(line, self.resname)
+            line3 = set_resnum_to_line(line2, self.resnum)
+            line4 = set_chain_to_line(line3, self.chain)
+            new_pdb.append(line4)
+        self.content = "".join(new_pdb)
+        return self.content
+
+    def overwrite_pdb(self):
+        with open(self.in_pdb, "w") as out_pdb:
+            out_pdb.write(self.content)
+            print("{} has been modified.".format(self.in_pdb))
 
 
 def get_resname_from_line(line):
@@ -39,18 +58,26 @@ def get_resnum_from_line(line):
 
 
 def set_resname_to_line(line, value):
+    line = list(line)
     line[17:20] = value
+    line = "".join(line)
     return line
 
 
 def set_chain_to_line(line, value):
+    line = list(line)
     line[21:22] = value
+    line = "".join(line)
     return line
 
 
 def set_resnum_to_line(line, value):
-    line[22:26] = value
+    line = list(line)
+    line[22:26] = str(value)
+    line = "".join(line)
     return line
+
+
 
 
 

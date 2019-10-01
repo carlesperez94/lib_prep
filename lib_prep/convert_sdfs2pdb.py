@@ -4,7 +4,8 @@ Program to transform 3D SDF files with large amount
 of molecular compounds to several PDBs.
 """
 
-import library
+from lib_prep import library, pdb_modifier
+from lib_prep.LibraryManager import lib_manager
 import argparse
 
 __author__ = "Carles Perez Lopez"
@@ -25,17 +26,26 @@ def parse_arguments():
     required_named.add_argument("sdf_input", type=str, help="SDF input file. Must contain 3D data.")
     parser.add_argument("-o", "--out_folder", type=str, default="out",
                         help="Path to the output folder.")
+    parser.add_argument("-ch", "--chain", type=str, default="L",
+                        help="Chain name for all pdbs in the library. Max char length: 1.")
+    parser.add_argument("-res", "--resname", type=str, default="LIG",
+                        help="Resname for all pdbs in the library. Max char length: 4")
+    parser.add_argument("-rn", "--resnum", type=str, default="   1",
+                        help="Resnum for all pdbs in the library. Max char length: 4")
+
     args = parser.parse_args()
 
-    return args.sdf_input, args.out_folder
+    return args.sdf_input, args.out_folder, args.chain, args.resname, args.resnum
 
 
-def main(sdf_input, output_folder):
+def main(sdf_input, output_folder, chain, resname, resnum):
     lib = library.Library(sdf_input)
     lib.export_sdf_to_pdbs(out_path=output_folder)
+    pdbs = lib_manager.LibraryChecker(output_folder).get_files()
+    pdbs.prepare_library(chain, resname, resnum)
 
 
 if __name__ == '__main__':
-    sdf_in, output_fold = parse_arguments()
-    main(sdf_input=sdf_in, output_folder=output_fold)
+    sdf_in, output_fold, chain, resname, resnum = parse_arguments()
+    main(sdf_input=sdf_in, output_folder=output_fold, chain=chain, resname=resname, resnum=resnum)
 
