@@ -3,10 +3,10 @@
 Program to transform 3D SDF files with large amount
 of molecular compounds to several PDBs.
 """
-
-from lib_prep import library, pdb_modifier
-from lib_prep.LibraryManager import lib_manager
+import os
 import argparse
+from lib_prep.LibraryManager import lib_manager, library
+
 
 __author__ = "Carles Perez Lopez"
 __version__ = "1.0.0"
@@ -39,10 +39,11 @@ def parse_arguments():
 
 
 def main(sdf_input, output_folder, chain, resname, resnum):
-    lib = library.Library(sdf_input)
-    lib.export_sdf_to_pdbs(out_path=output_folder)
-    pdbs = lib_manager.LibraryChecker(output_folder).get_files()
-    pdbs.prepare_library(chain, resname, resnum)
+    lib = library.LibrarySDF(sdf_input)
+    lib.export_sdf_to_pdb_rdkit(out_path=output_folder)
+    pdbs_library = os.path.join(output_folder, "pdbs")
+    pdb_lib = lib_manager.LibraryChecker(pdbs_library)
+    pdb_lib.prepare_library(chain, resname, resnum)
 
 
 if __name__ == '__main__':

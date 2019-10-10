@@ -4,6 +4,7 @@ class PDB:
         self.content = self.read_content_as_str()
         self.lines = self.read_content_as_lines()
         self.atom_section = self.read_atoms_section_as_str()
+        self.conect_section = self.read_conect()
         self.chain = chain
         self.resname = resname
         self.resnum = resnum
@@ -25,24 +26,37 @@ class PDB:
                 atoms_sect.append(line)
         return atoms_sect
 
+    def read_conect(self):
+        conect_sect = []
+        for line in self.lines:
+            if "CONECT" in line[0:6]:
+                conect_sect.append(line)
+        return conect_sect
+
     def read_atoms_section_as_str(self):
         return "\n".join(self.read_atoms_section())
 
     def modify_pdb(self):
         pdb_atom_lines = self.read_atoms_section()
         new_pdb = []
+        conect_lines = self.conect_section
         for line in pdb_atom_lines:
             line2 = set_resname_to_line(line, self.resname)
             line3 = set_resnum_to_line(line2, self.resnum)
             line4 = set_chain_to_line(line3, self.chain)
             new_pdb.append(line4)
-        self.content = "".join(new_pdb)
+        self.content = "".join(new_pdb)+"".join(conect_lines)
         return self.content
 
     def overwrite_pdb(self):
         with open(self.in_pdb, "w") as out_pdb:
             out_pdb.write(self.content)
             print("{} has been modified.".format(self.in_pdb))
+
+    def find_pdb_atom_name_of_idx(self, index):
+        for line in self.read_atoms_section():
+            if int(get_atom_index_from_line(line)) == int(index):
+                return get_atom_pdb_name_from_line(line)
 
 
 def get_resname_from_line(line):
@@ -56,6 +70,13 @@ def get_chain_from_line(line):
 def get_resnum_from_line(line):
     return line[22:26]
 
+
+def get_atom_index_from_line(line):
+    return line[6:11]
+
+
+def get_atom_pdb_name_from_line(line):
+    return line[12:16]
 
 def set_resname_to_line(line, value):
     line = list(line)
@@ -76,6 +97,7 @@ def set_resnum_to_line(line, value):
     line[22:26] = str(value)
     line = "".join(line)
     return line
+
 
 
 
