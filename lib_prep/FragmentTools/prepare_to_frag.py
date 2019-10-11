@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Program to prepare FragPELE instruction files from PDB libraries.
+Program to prepare FragPELE instruction's from PDB libraries.
 """
 
 import os

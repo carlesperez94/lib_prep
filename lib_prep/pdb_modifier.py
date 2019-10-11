@@ -94,7 +94,7 @@ def set_chain_to_line(line, value):
 
 def set_resnum_to_line(line, value):
     line = list(line)
-    line[22:26] = str(value)
+    line[22:26] = "{:>4}".format(value)
     line = "".join(line)
     return line
 
