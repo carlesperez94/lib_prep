@@ -58,6 +58,14 @@ class PDB:
             if int(get_atom_index_from_line(line)) == int(index):
                 return get_atom_pdb_name_from_line(line)
 
+    def get_names_dictionary(self):
+        names_dict = {}
+        for line in self.read_atoms_section():
+            index = int(get_atom_index_from_line(line).strip())
+            name = get_atom_pdb_name_from_line(line).strip()
+            names_dict[index] = name
+        return names_dict
+
 
 def get_resname_from_line(line):
     return line[17:20]
@@ -77,6 +85,7 @@ def get_atom_index_from_line(line):
 
 def get_atom_pdb_name_from_line(line):
     return line[12:16]
+
 
 def set_resname_to_line(line, value):
     line = list(line)
