@@ -32,21 +32,24 @@ def parse_arguments():
                         help="Resname for all pdbs in the library. Max char length: 4")
     parser.add_argument("-rn", "--resnum", type=str, default="   1",
                         help="Resnum for all pdbs in the library. Max char length: 4")
+    parser.add_argument("-pn", "--naming_property", type=str, default="Molecule Name",
+                        help="Name of the property of the SDF file that will be used to rename the output PDB files.")
 
     args = parser.parse_args()
 
-    return args.sdf_input, args.out_folder, args.chain, args.resname, args.resnum
+    return args.sdf_input, args.out_folder, args.chain, args.resname, args.resnum, args.naming_property
 
 
-def main(sdf_input, output_folder, chain, resname, resnum):
+def main(sdf_input, output_folder, chain, resname, resnum, property_to_name):
     lib = library.LibrarySDF(sdf_input)
-    lib.export_sdf_to_pdb_rdkit(out_path=output_folder)
+    lib.export_sdf_to_pdb_rdkit(out_path=output_folder, molname_property=property_to_name)
     pdbs_library = os.path.join(output_folder, "pdbs")
     pdb_lib = lib_manager.LibraryChecker(pdbs_library)
     pdb_lib.prepare_library(chain, resname, resnum)
 
 
 if __name__ == '__main__':
-    sdf_in, output_fold, chain, resname, resnum = parse_arguments()
-    main(sdf_input=sdf_in, output_folder=output_fold, chain=chain, resname=resname, resnum=resnum)
+    sdf_in, output_fold, chain, resname, resnum, property_to_name= parse_arguments()
+    main(sdf_input=sdf_in, output_folder=output_fold, chain=chain, resname=resname, resnum=resnum,
+         property_to_name=property_to_name)
 

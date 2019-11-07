@@ -51,7 +51,7 @@ class Detector(pdm.PDB):
         if bond not in self.bonds and tuple(reversed(bond)) not in self.bonds:
             raise ValueError("Bond {} does not exist!".format(bond))
 
-    def get_descendent_tree_from_bond(self, bond_to_descend_from):
+    def get_descendent_tree_from_bond(self, bond_to_descend_from):  # O - C
         self.check_if_bond_exist(bond_to_descend_from)
         atoms_visited = set()
         atoms_visited.add(bond_to_descend_from[0])  # This node has to be added to avoid double direction in the tree
@@ -80,10 +80,12 @@ class Detector(pdm.PDB):
 
     def bond_names_to_indexes(self):
         dictionary_of_names = self.get_names_dictionary_from_ligand()
-        indexes = []
+        indexes = [None, None]
         for index, name in dictionary_of_names.items():
-            if name == self.bond_to_descend[0] or name == self.bond_to_descend[1]:
-                indexes.append(int(index))
+            if name == self.bond_to_descend[0]:
+                indexes[0] = int(index)
+            if name == self.bond_to_descend[1]:
+                indexes[1] = int(index)
         return tuple(indexes)
 
 

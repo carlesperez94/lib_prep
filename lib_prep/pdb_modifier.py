@@ -66,6 +66,14 @@ class PDB:
             names_dict[index] = name
         return names_dict
 
+    def get_atoms_of_chain(self):
+        atoms_of_chain = []
+        for line in self.read_atoms_section():
+            chain = get_chain_from_line(line).strip()
+            if chain == self.chain:
+                atoms_of_chain.append(line)
+        return atoms_of_chain
+
 
 def get_resname_from_line(line):
     return line[17:20]
@@ -104,6 +112,13 @@ def set_chain_to_line(line, value):
 def set_resnum_to_line(line, value):
     line = list(line)
     line[22:26] = "{:>4}".format(value)
+    line = "".join(line)
+    return line
+
+
+def set_index_to_line(line, value):
+    line = list(line)
+    line[7:11] = "{:>4}".format(value)
     line = "".join(line)
     return line
 
