@@ -20,5 +20,9 @@ def test_4():
     tc.Prepare2FragTest().test_file_content()
 
 
+def test_5():
+    tc.DetectorTest().test_tree()
+
+
 testing_cleaning()
 

@@ -1,0 +1,64 @@
+REMARK   4      COMPLIES WITH FORMAT V. 3.0, 1-DEC-2006
+REMARK 888
+REMARK 888 WRITTEN BY MAESTRO (A PRODUCT OF SCHRODINGER, LLC)
+TITLE     Structure1
+MODEL        1
+HETATM    1  C1  TST T   1      -0.075  -0.008   0.040  1.00  0.00           C  
+HETATM    2  C2  TST T   1       0.923  -0.835   0.848  1.00  0.00           C  
+HETATM    3  O1  TST T   1       1.781  -1.460   0.232  1.00  0.00           O  
+HETATM    4  C3  TST T   1       0.844  -0.826   2.407  1.00  0.00           C  
+HETATM    5  C4  TST T   1       1.942  -1.754   3.058  1.00  0.00           C  
+HETATM    6  C5  TST T   1       1.121   0.656   2.839  1.00  0.00           C  
+HETATM    7  C6  TST T   1      -0.594  -1.214   2.862  1.00  0.00           C  
+HETATM    8  O2  TST T   1       0.875   0.907   4.216  1.00  0.00           O  
+HETATM    9  N1  TST T   1       1.686  -1.875   4.478  1.00  0.00           N  
+HETATM   10  O3  TST T   1       1.981  -3.098   2.653  1.00  0.00           O  
+HETATM   11  S1  TST T   1      -1.174  -2.859   2.290  1.00  0.00           S  
+HETATM   12  O4  TST T   1      -2.643  -2.786   2.306  1.00  0.00           O  
+HETATM   13  O5  TST T   1      -0.531  -3.889   3.120  1.00  0.00           O  
+HETATM   14  H1  TST T   1      -0.743   0.583   0.662  1.00  0.00           H  
+HETATM   15  H2  TST T   1      -0.676  -0.664  -0.588  1.00  0.00           H  
+HETATM   16  H3  TST T   1       0.473   0.668  -0.615  1.00  0.00           H  
+HETATM   17  H4  TST T   1       2.931  -1.324   2.881  1.00  0.00           H  
+HETATM   18  H5  TST T   1       2.149   0.935   2.612  1.00  0.00           H  
+HETATM   19  H6  TST T   1       0.503   1.366   2.288  1.00  0.00           H  
+HETATM   20  H7  TST T   1      -0.704  -1.196   3.945  1.00  0.00           H  
+HETATM   21  H8  TST T   1      -1.324  -0.508   2.490  1.00  0.00           H  
+HETATM   22  H9  TST T   1       1.097   1.806   4.425  1.00  0.00           H  
+HETATM   23  H10 TST T   1       2.523  -2.105   4.999  1.00  0.00           H  
+HETATM   24  H11 TST T   1       1.393  -0.962   4.816  1.00  0.00           H  
+HETATM   25  H12 TST T   1       1.273  -3.570   3.092  1.00  0.00           H  
+HETATM   26  H13 TST T   1      -0.791  -3.040   1.029  1.00  0.00           H  
+CONECT    1   14   15   16    2
+CONECT   14    1
+CONECT   15    1
+CONECT   16    1
+CONECT    2    1    3    4
+CONECT    2    3
+CONECT    3    2
+CONECT    3    2
+CONECT    4    2    5    6    7
+CONECT    5    4   17    9   10
+CONECT   17    5
+CONECT    6    4   18   19    8
+CONECT   18    6
+CONECT   19    6
+CONECT    7    4   20   21   11
+CONECT   20    7
+CONECT   21    7
+CONECT    8    6   22
+CONECT   22    8
+CONECT   23    9
+CONECT    9    5   23   24
+CONECT   24    9
+CONECT   10    5   25
+CONECT   25   10
+CONECT   11    7   12   26   13
+CONECT   11   12   13
+CONECT   12   11
+CONECT   12   11
+CONECT   26   11
+CONECT   13   11
+CONECT   13   11
+ENDMDL
+END   

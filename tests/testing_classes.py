@@ -1,6 +1,7 @@
 import lib_prep.convert_sdfs2pdb as s2p
 import lib_prep.pdb_modifier as pdbm
 import lib_prep.FragmentTools.prepare_to_frag as p2f
+import lib_prep.FragmentTools.tree_detector as tree
 import glob
 import os
 import shutil
@@ -18,7 +19,7 @@ class Convert2SDFTest:
 
     def test_files_creation(self):
         s2p.main(sdf_input="libraries/testing_set.sdf", output_folder="results_testing_convert",
-                 chain=self.CHAIN, resname=self.RESNAME, resnum=self.RESNUM)
+                 chain=self.CHAIN, resname=self.RESNAME, resnum=self.RESNUM, property_to_name="Molecule Name")
         result_files = glob.glob("results_testing_convert/pdbs/*")
         assert sorted(result_files) == RESULT_TEST
 
@@ -55,6 +56,18 @@ class Prepare2FragTest:
                 pdb_relative_path = pdb_path.split("/")[-3:]
                 pdb_relative_path = "/".join(pdb_relative_path)
                 assert pdb_relative_path in RESULT_TEST
+
+
+class DetectorTest:
+    PDB_IN = "pdb_complexes/testing_detector.pdb"
+    BOND = ("C2", "C3")
+    CHAIN = "T"
+    RESULT_TEST = ['C3', 'C4', 'C5', 'C6', 'O2', 'N1', 'O3', 'S1', 'O4', 'O5', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
+                  'H11', 'H12', 'H13']
+
+    def test_tree(self):
+        atoms_under_tree = tree.main(pdb_complex=self.PDB_IN, bond_to_descend=self.BOND, chain_ligand=self.CHAIN)
+        assert atoms_under_tree == self.RESULT_TEST
 
 
 def testing_cleaning():
