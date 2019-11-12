@@ -1,5 +1,16 @@
 class PDB:
     def __init__(self, in_pdb, chain="L", resname="LIG", resnum="   1"):
+        """
+        Class to read and process PDB files.
+        :param in_pdb: pdb file path
+        :type in_pdb: str
+        :param chain: label of the chain of interest
+        :type chain: str
+        :param resname: label of the residue name of the molecule of interest
+        :type resname: str
+        :param resnum:  residue number of the residue of interest
+        :type resnum: str
+        """
         self.in_pdb = in_pdb
         self.content = self.read_content_as_str()
         self.lines = self.read_content_as_lines()
@@ -10,16 +21,28 @@ class PDB:
         self.resnum = resnum
 
     def read_content_as_str(self):
+        """
+        Reads the content of the PDB file.
+        :return: content of the pdb as string
+        """
         with open(self.in_pdb) as infile:
             content = infile.read()
         return content
 
     def read_content_as_lines(self):
+        """
+        Reads the content of the PDB file.
+        :return: content of the pdb as list of lines.
+        """
         with open(self.in_pdb) as infile:
             content = infile.readlines()
         return content
 
     def read_atoms_section(self):
+        """
+        Reads the ATOM section of the PDB.
+        :return: ATOM section as list of lines.
+        """
         atoms_sect = []
         for line in self.lines:
             if "ATOM" in line[0:4] or "HETATM" in line[0:6]:
@@ -27,6 +50,10 @@ class PDB:
         return atoms_sect
 
     def read_conect(self):
+        """
+        Reads the CONECT section of a PDB.
+        :return: CONECT section as list of lines.
+        """
         conect_sect = []
         for line in self.lines:
             if "CONECT" in line[0:6]:
@@ -34,9 +61,18 @@ class PDB:
         return conect_sect
 
     def read_atoms_section_as_str(self):
+        """
+        Reads the ATOM section of the PDB.
+        :return: ATOM section as str.
+        """
         return "\n".join(self.read_atoms_section())
 
     def modify_pdb(self):
+        """
+        Modify the content of a PDB. The chain, resnumber and resnames are modified for
+        the attributes set in the class.
+        :return: content attribute (self)
+        """
         pdb_atom_lines = self.read_atoms_section()
         new_pdb = []
         conect_lines = self.conect_section
@@ -49,16 +85,29 @@ class PDB:
         return self.content
 
     def overwrite_pdb(self):
+        """
+        Overwrites the content in the same in_pdb file.
+        :return: None
+        """
         with open(self.in_pdb, "w") as out_pdb:
             out_pdb.write(self.content)
             print("{} has been modified.".format(self.in_pdb))
 
     def find_pdb_atom_name_of_idx(self, index):
+        """
+        Finds the PDB atom name of an index.
+        :param index: index of an atom
+        :return: pdb atom name
+        """
         for line in self.read_atoms_section():
             if int(get_atom_index_from_line(line)) == int(index):
                 return get_atom_pdb_name_from_line(line)
 
     def get_names_dictionary(self):
+        """
+        Reads the atom section and returns a dictionary { index : pdb_name }
+        :return: dictionary
+        """
         names_dict = {}
         for line in self.read_atoms_section():
             index = int(get_atom_index_from_line(line).strip())
@@ -67,6 +116,10 @@ class PDB:
         return names_dict
 
     def get_atoms_of_chain(self):
+        """
+        Return lines of the chain specified.
+        :return: list of lines
+        """
         atoms_of_chain = []
         for line in self.read_atoms_section():
             chain = get_chain_from_line(line).strip()
