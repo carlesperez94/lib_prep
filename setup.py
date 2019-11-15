@@ -18,7 +18,7 @@ setup(
     license='',
     packages=find_packages(exclude=['docs', 'tests']),
     include_dirs=[numpy.get_include()],
-    install_requires=['rdkit', 'ProDy==1.10'],
+    install_requires=['rdkit', 'ProDy==1.10', 'scipy', 'biopython', 'pyparsing'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
