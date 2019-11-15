@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentation &mdash; LibPrep 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting Started" href="first_steps.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> LibPrep
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_steps.html">Getting Started</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#convert2pdb">Convert2PDB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#required-parameters">Required parameters:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-arguments">Optional arguments:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-to-frag">Prepare To Frag</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Required parameters:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Optional arguments:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Example:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LibPrep</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/documentation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="convert2pdb">
+<h2>Convert2PDB<a class="headerlink" href="#convert2pdb" title="Permalink to this headline">¶</a></h2>
+<p>General usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_FOLDER</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ch</span> <span class="n">CHAIN</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">res</span> <span class="n">RESNAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">rn</span> <span class="n">RESNUM</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">pn</span> <span class="n">NAMING_PROPERTY</span><span class="p">]</span> <span class="n">sdf_input</span>
+</pre></div>
+</div>
+<div class="section" id="required-parameters">
+<h3>Required parameters:<a class="headerlink" href="#required-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Take in mind that these parameters are positionals, so the order matters:</p>
+<ul class="simple">
+<li><strong>sdf_input</strong>: Path to a library of fragments or ligands in SDF file. The ligands/fragments must be previously protonated and optimized .</li>
+</ul>
+</div>
+<div class="section" id="optional-arguments">
+<h3>Optional arguments:<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>-o</strong>, <strong>—out_folder</strong>: Path of the output folder. PDB output files will be stored in this path. Default: “out”. Type: str.</li>
+<li><strong>-ch</strong>, <strong>—chain</strong>: Label for the chain of the ligand in new PDBs. Default: “L”. Type: str.</li>
+<li><strong>-res</strong>, <strong>—resname</strong>: Label for the residue name of the ligand in new PDBs. Default: “LIG”. Type: str.</li>
+<li><strong>-rn</strong>, <strong>—resnum</strong>: Label for the residue number of the ligand in new PDBs. Default: 1. Type: int.</li>
+<li><strong>-pn</strong>, <strong>—naming_property</strong>: Property of the SDF file that will we used to name the output PDB files. By default: “Molecule Name”. If the property is not found in the SDF file the molecules are renamed automatically as “MOL{:09d}”, where the content in brackets will be replaced by a 9 digits counter.</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Normally you do not need to change any optional parameter to run Convert2PDB, so for common use try the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span>
+</pre></div>
+</div>
+<p>If, for some reason, you want that to name the chain of the ligands as “Z”, the residue name as “WAT”, and the residue number as 100:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span> <span class="o">--</span><span class="n">chain</span> <span class="n">Z</span> <span class="o">--</span><span class="n">resname</span> <span class="n">WAT</span> <span class="o">--</span><span class="n">resnum</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="prepare-to-frag">
+<h2>Prepare To Frag<a class="headerlink" href="#prepare-to-frag" title="Permalink to this headline">¶</a></h2>
+<p>General usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">m</span> <span class="p">{</span><span class="n">first</span><span class="o">-</span><span class="n">occurrence</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT</span><span class="p">]</span> <span class="n">library_path</span> <span class="n">pdb_complex</span> <span class="n">heavy_atom_pdb_complex</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h3>Required parameters:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Take in mind that these parameters are positionals, so the order matters:</p>
+<ul class="simple">
+<li><strong>library_path</strong>: Path to the folder that contains the library of fragments or ligands in PDF file. This ideally would be the output folder of Convert2PDB, but if you have another library of PDB files already prepared it can be used anyway. REMINDER: the program will check if all files inside the folder are PDBs, otherwise an exception will rise!</li>
+<li><strong>pdb_complex</strong>: Path to a ligand-protein complex. The ligand should be the core or scaffold to grow fragments onto it with FragPELE.</li>
+<li><strong>heavy_atom_pdb_complex</strong>: Atom name of the heavy atom of the previous core/scaffold to grow fragments onto it. All links between core and fragment will be generated through this atom.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Optional arguments:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>-o</strong>, <strong>—out</strong>: Path of the output file. By default the output file will be stored into the library_path and named “serie_file_{}.conf”, filling the brackets with the pdb_complex name. Type: str.</li>
+<li><strong>-m</strong>, <strong>—mode</strong>: Choose between different scanning modes.
+- first-occurrence: the first heavy atom found with at least one hydrogen atom bonded will be selected.</li>
+</ul>
+<p>Currently, only one single mode is available but in the future we will implement more.</p>
+</div>
+<div class="section" id="id3">
+<h3>Example:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Easy example of usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FragmentTools</span><span class="o">/</span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">out</span><span class="o">/</span><span class="n">pdbs</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">complex</span><span class="o">.</span><span class="n">pdb</span> <span class="n">C1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="first_steps.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Carles Perez Lopez
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

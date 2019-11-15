@@ -16,9 +16,9 @@ If you want, you can create a conda environment to work with lib_prep::
 	conda create -n lib_prep_env python=3.7
 	conda activate lib_prep_env
 
-Otherwise, you can just continue here by installing the package into your current conda environment:
+Otherwise, you can just continue here by installing the package into your current conda environment::
 
-	conda install -c carlesperez94 -c rdkit -c nostrumbiodiscovery lib_prep
+        conda install -c carlesperez94 -c rdkit -c nostrumbiodiscovery lib_prep
 
 
 Now, it should work. We strongly recommend you to run the tests, but is not mandatory. 
