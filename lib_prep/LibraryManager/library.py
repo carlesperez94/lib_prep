@@ -69,7 +69,19 @@ class LibrarySDF:
     def set_outpath(self, out_path):
         self.outpath = out_path
 
-    def export_sdf_to_pdb_rdkit(self, out_path, molname_property="Molecule Name"):
+    def get_sdf_filenames(self):
+        molecules_names = []
+        molecules_split = self.content.split("$$$$\n")
+        name_1 = molecules_split[0].split("\n")[0]
+        molecules_names.append(name_1)
+        for molecule in molecules_split[1:-1]:
+            molecule_lines = molecule.split("\n")
+            molname = molecule_lines[0]
+            molecules_names.append(molname)
+        return molecules_names
+
+
+    def export_sdf_to_pdb_rdkit(self, out_path, molname_property="Molecule Name", get_sdf_name=True):
         self.set_outpath(out_path)
         if not os.path.exists(self.outpath):
             os.mkdir(self.outpath)
@@ -77,13 +89,18 @@ class LibrarySDF:
         if not os.path.exists(pdb_path):
             os.mkdir(pdb_path)
         molecule_names = {}
-        molecule_counter = 0
-        for mol in self.get_molecules_as_rdkit():
-            try:
-                mol_name = mol.GetPropsAsDict()[molname_property]
-            except KeyError:
-                mol_name = "MOL{:09d}".format(molecule_counter)
-                molecule_counter += 1
+        molecule_counter = 1
+        if get_sdf_name:
+            mol_names = self.get_sdf_filenames()
+        for n, mol in enumerate(self.get_molecules_as_rdkit()):
+            if not get_sdf_name:
+                try:
+                    mol_name = mol.GetPropsAsDict()[molname_property]
+                except KeyError:
+                    mol_name = "MOL{:04d}".format(molecule_counter)
+                    molecule_counter += 1
+            else:
+                mol_name = mol_names[n]
             add_to_dictionary_and_count(dictionary=molecule_names, entrance=mol_name)
             new_name = "{}_{}.pdb".format(mol_name, molecule_names[mol_name])
             new_filename = os.path.join(pdb_path, new_name)
