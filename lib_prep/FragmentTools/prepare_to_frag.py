@@ -16,6 +16,9 @@ __version__ = "1.1.0"
 __maintainer__ = "Carles Perez Lopez"
 __email__ = "carlesperez94@gmail.com"
 
+#Path variables
+module_path = os.path.abspath(os.path.dirname(pdb_modifier.__file__))
+global_lib_path = os.path.join(module_path, "Libraries/global")
 
 def parse_arguments():
     """
@@ -30,7 +33,7 @@ def parse_arguments():
     required_named.add_argument("heavy_atom_pdb_complex", type=str, help="PDB atom name of the heavy atom of the core "
                                                                          "or scaffold PDB complex that is used to"
                                                                          " grow the fragments of the library onto it.")
-    parser.add_argument("-l", "--lib_path", type=str, default="{}/../Libraries/global".format(os.getcwd()),
+    parser.add_argument("-l", "--lib_path", type=str, default=global_lib_path,
                         help="Path to the library (folder) which must contain"
                              "PDB files with the fragments.")
     parser.add_argument("-m", "--mode", type=str, default="first-occurrence", choices=["first-occurrence"],
@@ -39,7 +42,7 @@ def parse_arguments():
                              "hydrogen atom is selected.")
     parser.add_argument("-o", "--out", type=str, default=None,
                         help="If selected, path to the file with the instructions to run FragPELE.")
-    parser.add_argument("--global_lib", default=False,
+    parser.add_argument("--global_lib", action='store_true',
                         help="Set this flag to prepare FragPELE configuration files to run the global library.")
 
     args = parser.parse_args()
@@ -80,34 +83,31 @@ class FragPreparator(lib_manager.LibraryChecker):
                 print(e)
         self.instructions = "\n".join(instructions)
     
-    def prepare_global_lib(self, line, ha_atomname):
-        template_glob = "{}/../Templates/glob_template.conf".format(os.getcwd())
-        with open(template_glob) as t:
-            template = t.read()
-        template.substitute("ATOM": ha_atomname, "PATH": self.lib_path)
-        return template_glob
- 
     def write_instructions_to_file(self, out_file=None):
         if not out_file:
             out_file = os.path.join(self.path_to_library,
                                     "serie_file_{}.conf".format(os.path.basename(os.path.splitext(self.pdb_complex)[0])))
         with open(out_file, "w") as out:
             out.write(self.instructions)
+        print("Serie file saved in {}".format(out_file))
 
 
-def prepare_global_lib(line, ha_atomname, path_pdb):
-        template_glob = "{}/../Templates/glob_template.conf".format(os.getcwd())
+    def prepare_global_lib(self):
+        template_glob = os.path.join(module_path, "Templates", "global_template.conf")
         with open(template_glob) as t:
             template = t.read()
-        template_line.substitute("ATOM": ha_atomname, "PATH": path_pdb)
-        return template_glob
+        temp_obj = Template(template)
+        result = temp_obj.safe_substitute({"ATOM": self.heavy_atom_pdb_complex, "PATH": self.path_to_library})
+        self.instructions = result
 
 
 def main(pdb_complex, heavy_atom_pdb_complex, lib_path, mode="first-occurrence", out_file=None, global_lib=False):
-
     prepare_fragpele = FragPreparator(pdb_complex=pdb_complex, heavy_atom_pdb_complex=heavy_atom_pdb_complex,
                                       library_path=lib_path, mode=mode)
-    prepare_fragpele.prepare_frag_pele_instructions()
+    if global_lib:
+        prepare_fragpele.prepare_global_lib()
+    else:
+        prepare_fragpele.prepare_frag_pele_instructions()
     prepare_fragpele.write_instructions_to_file(out_file)
 
 
