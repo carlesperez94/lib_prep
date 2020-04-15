@@ -1,0 +1,27 @@
+REMARK   4      COMPLIES WITH FORMAT V. 3.0, 1-DEC-2006
+REMARK 888
+REMARK 888 WRITTEN BY MAESTRO (A PRODUCT OF SCHRODINGER, LLC)
+TITLE     40
+MODEL        1
+HETATM    1  C1  FRG L   1       4.835  -2.249   0.666  1.00  0.00           C  
+HETATM    2  C2  FRG L   1       5.011  -0.765   0.995  1.00  0.00           C  
+HETATM    3  O1  FRG L   1       3.745  -2.392  -0.219  1.00  0.00           O  
+HETATM    4  N1  FRG L   1       5.536  -3.362   1.082  1.00  0.00           N  
+HETATM    5  H1  FRG L   1       5.852  -0.609   1.670  1.00  0.00           H  
+HETATM    6  H2  FRG L   1       5.194  -0.182   0.092  1.00  0.00           H  
+HETATM    7  H3  FRG L   1       4.117  -0.360   1.474  1.00  0.00           H  
+HETATM    8  H4  FRG L   1       5.270  -4.279   0.754  1.00  0.00           H  
+HETATM    9  H5  FRG L   1       6.316  -3.260   1.716  1.00  0.00           H  
+CONECT    1    2    3    4
+CONECT    1    3
+CONECT    2    1    5    6    7
+CONECT    3    1
+CONECT    3    1
+CONECT    4    1    8    9
+CONECT    5    2
+CONECT    6    2
+CONECT    7    2
+CONECT    8    4
+CONECT    9    4
+ENDMDL
+END   
