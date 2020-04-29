@@ -16,7 +16,7 @@ Conda installation commands::
 
     conda create -n libprep python=3.7
     conda activate libprep
-    conda install -c NostrumBioDiscovery
+    conda install -c carlesperez94 lib_prep
 
 Once you have the conda environment created, you just need to activate it to use lib_prep::
     
