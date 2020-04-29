@@ -12,8 +12,15 @@ Installation
 Conda (Recommended)
 -------------------
 
-TODO
+Conda installation commands::
 
+    conda create -n libprep python=3.7
+    conda activate libprep
+    conda install -c NostrumBioDiscovery
+
+Once you have the conda environment created, you just need to activate it to use lib_prep::
+    
+    conda activate libprep
 
 Pypi
 ----
@@ -28,4 +35,6 @@ TODO
 Test
 ----
 
-TODO
+Test LibPrep through pytest module::
+    cd tests/
+    python -m pytest test_all.py

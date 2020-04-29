@@ -175,7 +175,16 @@
 </div>
 <div class="section" id="conda-recommended">
 <h2>Conda (Recommended)<a class="headerlink" href="#conda-recommended" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>Conda installation commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">libprep</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.7</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">libprep</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">NostrumBioDiscovery</span>
+</pre></div>
+</div>
+<p>Once you have the conda environment created, you just need to activate it to use lib_prep:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">libprep</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="pypi">
 <h2>Pypi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h2>
@@ -187,7 +196,11 @@
 </div>
 <div class="section" id="test">
 <h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<dl class="docutils">
+<dt>Test LibPrep through pytest module::</dt>
+<dd>cd tests/
+python -m pytest test_all.py</dd>
+</dl>
 </div>
 </div>
 
