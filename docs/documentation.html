@@ -183,7 +183,7 @@
 <div class="section" id="convert2pdb">
 <h2>Convert2PDB<a class="headerlink" href="#convert2pdb" title="Permalink to this headline">¶</a></h2>
 <p>General usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_FOLDER</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ch</span> <span class="n">CHAIN</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">res</span> <span class="n">RESNAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">rn</span> <span class="n">RESNUM</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">pn</span> <span class="n">NAMING_PROPERTY</span><span class="p">]</span> <span class="n">sdf_input</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_FOLDER</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ch</span> <span class="n">CHAIN</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">res</span> <span class="n">RESNAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">rn</span> <span class="n">RESNUM</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">pn</span> <span class="n">NAMING_PROPERTY</span><span class="p">]</span> <span class="n">sdf_input</span>
 </pre></div>
 </div>
 <div class="section" id="required-parameters">
@@ -200,17 +200,17 @@
 <li><strong>-ch</strong>, <strong>—chain</strong>: Label for the chain of the ligand in new PDBs. Default: “L”. Type: str.</li>
 <li><strong>-res</strong>, <strong>—resname</strong>: Label for the residue name of the ligand in new PDBs. Default: “LIG”. Type: str.</li>
 <li><strong>-rn</strong>, <strong>—resnum</strong>: Label for the residue number of the ligand in new PDBs. Default: 1. Type: int.</li>
-<li><strong>-pn</strong>, <strong>—naming_property</strong>: Property of the SDF file that will we used to name the output PDB files. By default: “Molecule Name”. If the property is not found in the SDF file the molecules are renamed automatically as “MOL{:09d}”, where the content in brackets will be replaced by a 9 digits counter.</li>
+<li><strong>-pn</strong>, <strong>—naming_property</strong>: Property of the SDF file that will we used to name the output PDB files. By default: “Molecule Name”. If the property is not found in the SDF file the molecules are renamed automatically by the name ID found in the SDF.</li>
 </ul>
 </div>
 <div class="section" id="example">
 <h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>Normally you do not need to change any optional parameter to run Convert2PDB, so for common use try the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span>
 </pre></div>
 </div>
 <p>If, for some reason, you want that to name the chain of the ligands as “Z”, the residue name as “WAT”, and the residue number as 100:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span> <span class="o">--</span><span class="n">chain</span> <span class="n">Z</span> <span class="o">--</span><span class="n">resname</span> <span class="n">WAT</span> <span class="o">--</span><span class="n">resnum</span> <span class="mi">100</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">convert_sdfs2pdb</span><span class="o">.</span><span class="n">py</span> <span class="n">library</span><span class="o">.</span><span class="n">sdf</span> <span class="o">--</span><span class="n">chain</span> <span class="n">Z</span> <span class="o">--</span><span class="n">resname</span> <span class="n">WAT</span> <span class="o">--</span><span class="n">resnum</span> <span class="mi">100</span>
 </pre></div>
 </div>
 </div>
@@ -218,14 +218,13 @@
 <div class="section" id="prepare-to-frag">
 <h2>Prepare To Frag<a class="headerlink" href="#prepare-to-frag" title="Permalink to this headline">¶</a></h2>
 <p>General usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">m</span> <span class="p">{</span><span class="n">first</span><span class="o">-</span><span class="n">occurrence</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT</span><span class="p">]</span> <span class="n">library_path</span> <span class="n">pdb_complex</span> <span class="n">heavy_atom_pdb_complex</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">m</span> <span class="p">{</span><span class="n">first</span><span class="o">-</span><span class="n">occurrence</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT</span><span class="p">]</span> <span class="n">library_path</span> <span class="n">pdb_complex</span> <span class="n">heavy_atom_pdb_complex</span>
 </pre></div>
 </div>
 <div class="section" id="id1">
 <h3>Required parameters:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Take in mind that these parameters are positionals, so the order matters:</p>
 <ul class="simple">
-<li><strong>library_path</strong>: Path to the folder that contains the library of fragments or ligands in PDF file. This ideally would be the output folder of Convert2PDB, but if you have another library of PDB files already prepared it can be used anyway. REMINDER: the program will check if all files inside the folder are PDBs, otherwise an exception will rise!</li>
 <li><strong>pdb_complex</strong>: Path to a ligand-protein complex. The ligand should be the core or scaffold to grow fragments onto it with FragPELE.</li>
 <li><strong>heavy_atom_pdb_complex</strong>: Atom name of the heavy atom of the previous core/scaffold to grow fragments onto it. All links between core and fragment will be generated through this atom.</li>
 </ul>
@@ -233,16 +232,21 @@
 <div class="section" id="id2">
 <h3>Optional arguments:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
+<li><strong>-l</strong>, <strong>—lib_path</strong>: Path to the folder that contains the library of fragments or ligands in PDF file. If any library is set, by default it will use the global library. This ideally would be the output folder of Convert2PDB, but if you have another library of PDB files already prepared it can be used anyway. REMINDER: the program will check if all files inside the folder are PDBs, otherwise an exception will rise!</li>
 <li><strong>-o</strong>, <strong>—out</strong>: Path of the output file. By default the output file will be stored into the library_path and named “serie_file_{}.conf”, filling the brackets with the pdb_complex name. Type: str.</li>
 <li><strong>-m</strong>, <strong>—mode</strong>: Choose between different scanning modes.
 - first-occurrence: the first heavy atom found with at least one hydrogen atom bonded will be selected.</li>
+<li><strong>—global_library</strong>: Set this flag to prepare FragPELE configuration files to run the global library.</li>
 </ul>
-<p>Currently, only one single mode is available but in the future we will implement more.</p>
 </div>
 <div class="section" id="id3">
 <h3>Example:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Easy example of usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FragmentTools</span><span class="o">/</span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">out</span><span class="o">/</span><span class="n">pdbs</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">complex</span><span class="o">.</span><span class="n">pdb</span> <span class="n">C1</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FragmentTools</span><span class="o">/</span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">complex</span><span class="o">.</span><span class="n">pdb</span> <span class="n">C1</span>
+</pre></div>
+</div>
+<p>To run the global library:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FragmentTools</span><span class="o">/</span><span class="n">prepare_to_frag</span><span class="o">.</span><span class="n">py</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">complex</span><span class="o">.</span><span class="n">pdb</span> <span class="n">C1</span> <span class="o">--</span><span class="n">global_library</span> <span class="o">-</span><span class="n">o</span> <span class="n">serie_global</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
 </div>

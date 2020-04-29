@@ -25,7 +25,7 @@ Optional arguments:
 -  **-ch**, **---chain**: Label for the chain of the ligand in new PDBs. Default: "L". Type: str.
 -  **-res**, **---resname**: Label for the residue name of the ligand in new PDBs. Default: "LIG". Type: str.
 -  **-rn**, **---resnum**: Label for the residue number of the ligand in new PDBs. Default: 1. Type: int.
--  **-pn**, **---naming_property**: Property of the SDF file that will we used to name the output PDB files. By default: "Molecule Name". If the property is not found in the SDF file the molecules are renamed automatically as "MOL{:09d}", where the content in brackets will be replaced by a 9 digits counter.
+-  **-pn**, **---naming_property**: Property of the SDF file that will we used to name the output PDB files. By default: "Molecule Name". If the property is not found in the SDF file the molecules are renamed automatically by the name ID found in the SDF.
 
 Example:
 ++++++++
@@ -49,7 +49,6 @@ Required parameters:
 ++++++++++++++++++++
 Take in mind that these parameters are positionals, so the order matters:
 
-- **library_path**: Path to the folder that contains the library of fragments or ligands in PDF file. This ideally would be the output folder of Convert2PDB, but if you have another library of PDB files already prepared it can be used anyway. REMINDER: the program will check if all files inside the folder are PDBs, otherwise an exception will rise!
 
 - **pdb_complex**: Path to a ligand-protein complex. The ligand should be the core or scaffold to grow fragments onto it with FragPELE.
 
@@ -58,15 +57,21 @@ Take in mind that these parameters are positionals, so the order matters:
 Optional arguments:
 +++++++++++++++++++
 
+- **-l**, **---lib_path**: Path to the folder that contains the library of fragments or ligands in PDF file. If any library is set, by default it will use the global library. This ideally would be the output folder of Convert2PDB, but if you have another library of PDB files already prepared it can be used anyway. REMINDER: the program will check if all files inside the folder are PDBs, otherwise an exception will rise!
+
 -  **-o**, **---out**: Path of the output file. By default the output file will be stored into the library_path and named "serie_file_{}.conf", filling the brackets with the pdb_complex name. Type: str.
 -  **-m**, **---mode**: Choose between different scanning modes.
    - first-occurrence: the first heavy atom found with at least one hydrogen atom bonded will be selected.
 
-Currently, only one single mode is available but in the future we will implement more.
+- **---global_library**: Set this flag to prepare FragPELE configuration files to run the global library.
 
 Example:
 ++++++++
 
 Easy example of usage::
 
-   FragmentTools/prepare_to_frag.py /out/pdbs /path/to/complex.pdb C1
+   FragmentTools/prepare_to_frag.py /path/to/complex.pdb C1
+
+To run the global library::
+   
+   FragmentTools/prepare_to_frag.py /path/to/complex.pdb C1 --global_library -o serie_global.conf
