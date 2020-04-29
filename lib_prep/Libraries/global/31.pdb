@@ -1,0 +1,41 @@
+REMARK   4      COMPLIES WITH FORMAT V. 3.0, 1-DEC-2006
+REMARK 888
+REMARK 888 WRITTEN BY MAESTRO (A PRODUCT OF SCHRODINGER, LLC)
+TITLE     31
+MODEL        1
+HETATM    1  C1  FRG L   1       3.722  -2.509  -0.329  1.00  0.00           C  
+HETATM    2  C2  FRG L   1       2.377  -1.881   0.074  1.00  0.00           C  
+HETATM    3  C3  FRG L   1       4.784  -2.186   0.738  1.00  0.00           C  
+HETATM    4  C4  FRG L   1       3.559  -4.033  -0.454  1.00  0.00           C  
+HETATM    5  C5  FRG L   1       4.169  -1.941  -1.687  1.00  0.00           C  
+HETATM    6  H1  FRG L   1       5.751  -2.623   0.481  1.00  0.00           H  
+HETATM    7  H2  FRG L   1       2.448  -0.795   0.148  1.00  0.00           H  
+HETATM    8  H3  FRG L   1       1.598  -2.110  -0.654  1.00  0.00           H  
+HETATM    9  H4  FRG L   1       2.037  -2.251   1.043  1.00  0.00           H  
+HETATM   10  H5  FRG L   1       4.502  -2.580   1.716  1.00  0.00           H  
+HETATM   11  H6  FRG L   1       4.926  -1.109   0.847  1.00  0.00           H  
+HETATM   12  H7  FRG L   1       4.500  -4.508  -0.735  1.00  0.00           H  
+HETATM   13  H8  FRG L   1       3.232  -4.481   0.486  1.00  0.00           H  
+HETATM   14  H9  FRG L   1       2.820  -4.294  -1.215  1.00  0.00           H  
+HETATM   15  H10 FRG L   1       5.120  -2.374  -2.000  1.00  0.00           H  
+HETATM   16  H11 FRG L   1       3.438  -2.158  -2.469  1.00  0.00           H  
+HETATM   17  H12 FRG L   1       4.298  -0.859  -1.650  1.00  0.00           H  
+CONECT    1    2    3    4    5
+CONECT    2    1    7    8    9
+CONECT    3    1    6   10   11
+CONECT    4    1   12   13   14
+CONECT    5    1   15   16   17
+CONECT    6    3
+CONECT    7    2
+CONECT    8    2
+CONECT    9    2
+CONECT   10    3
+CONECT   11    3
+CONECT   12    4
+CONECT   13    4
+CONECT   14    4
+CONECT   15    5
+CONECT   16    5
+CONECT   17    5
+ENDMDL
+END   

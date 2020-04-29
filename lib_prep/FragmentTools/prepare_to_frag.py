@@ -5,15 +5,20 @@ Program to prepare FragPELE instruction's from PDB libraries.
 
 import os
 import argparse
+from string import Template
+
 from rdkit import Chem
 from lib_prep.LibraryManager import lib_manager
 from lib_prep import pdb_modifier
 
 __author__ = "Carles Perez Lopez"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __maintainer__ = "Carles Perez Lopez"
 __email__ = "carlesperez94@gmail.com"
 
+#Path variables
+module_path = os.path.abspath(os.path.dirname(pdb_modifier.__file__))
+global_lib_path = os.path.join(module_path, "Libraries/global")
 
 def parse_arguments():
     """
@@ -24,22 +29,25 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="""Description: Program to prepare FragPELE instruction files 
     from PDB libraries.""")
     required_named = parser.add_argument_group('required named arguments')
-    required_named.add_argument("library_path", type=str, help="Path to the library (folder) which must contain"
-                                                               "PDB files with the fragments.")
     required_named.add_argument("pdb_complex", type=str, help="Path to core or scaffold PDB complex.")
     required_named.add_argument("heavy_atom_pdb_complex", type=str, help="PDB atom name of the heavy atom of the core "
                                                                          "or scaffold PDB complex that is used to"
                                                                          " grow the fragments of the library onto it.")
+    parser.add_argument("-l", "--lib_path", type=str, default=global_lib_path,
+                        help="Path to the library (folder) which must contain"
+                             "PDB files with the fragments.")
     parser.add_argument("-m", "--mode", type=str, default="first-occurrence", choices=["first-occurrence"],
                         help="Criteria to select atoms of fragments to connect with the heavy atom of the complex."
                              "Currently only 'first-ocurrence' is available: the first HvA found with a at least one"
                              "hydrogen atom is selected.")
     parser.add_argument("-o", "--out", type=str, default=None,
                         help="If selected, path to the file with the instructions to run FragPELE.")
+    parser.add_argument("--global_lib", action='store_true',
+                        help="Set this flag to prepare FragPELE configuration files to run the global library.")
 
     args = parser.parse_args()
 
-    return args.library_path, args.pdb_complex, args.heavy_atom_pdb_complex, args.mode, args.out
+    return args.pdb_complex, args.heavy_atom_pdb_complex, args.lib_path, args.mode, args.out, args.global_lib
 
 
 class FragPreparator(lib_manager.LibraryChecker):
@@ -74,25 +82,37 @@ class FragPreparator(lib_manager.LibraryChecker):
             except Exception as e:
                 print(e)
         self.instructions = "\n".join(instructions)
-
+    
     def write_instructions_to_file(self, out_file=None):
         if not out_file:
             out_file = os.path.join(self.path_to_library,
                                     "serie_file_{}.conf".format(os.path.basename(os.path.splitext(self.pdb_complex)[0])))
         with open(out_file, "w") as out:
             out.write(self.instructions)
+        print("Serie file saved in {}".format(out_file))
 
 
-def main(pdb_complex, heavy_atom_pdb_complex, lib_path, mode="first-occurrence", out_file=None):
+    def prepare_global_lib(self):
+        template_glob = os.path.join(module_path, "Templates", "global_template.conf")
+        with open(template_glob) as t:
+            template = t.read()
+        temp_obj = Template(template)
+        result = temp_obj.safe_substitute({"ATOM": self.heavy_atom_pdb_complex, "PATH": self.path_to_library})
+        self.instructions = result
 
+
+def main(pdb_complex, heavy_atom_pdb_complex, lib_path, mode="first-occurrence", out_file=None, global_lib=False):
     prepare_fragpele = FragPreparator(pdb_complex=pdb_complex, heavy_atom_pdb_complex=heavy_atom_pdb_complex,
                                       library_path=lib_path, mode=mode)
-    prepare_fragpele.prepare_frag_pele_instructions()
+    if global_lib:
+        prepare_fragpele.prepare_global_lib()
+    else:
+        prepare_fragpele.prepare_frag_pele_instructions()
     prepare_fragpele.write_instructions_to_file(out_file)
 
 
 if __name__ == '__main__':
-    library_path, pdb_complex, heavy_atom_pdb_complex, mode, out = parse_arguments()
-    main(pdb_complex, heavy_atom_pdb_complex, library_path, mode, out)
+    pdb_complex, heavy_atom_pdb_complex, library_path, mode, out, global_lib = parse_arguments()
+    main(pdb_complex, heavy_atom_pdb_complex, library_path, mode, out, global_lib)
 
 
