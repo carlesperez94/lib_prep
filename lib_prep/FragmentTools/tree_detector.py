@@ -17,7 +17,7 @@ __email__ = "carlesperez94@gmail.com"
 
 
 class Detector(pdm.PDB):
-    def __init__(self, in_pdb, bond_to_descend, chain_ligand="L"):
+    def __init__(self, in_pdb, bond_to_descend, chain="L", resnum=None):
         """
         Class to detect atoms across a bond.
         :param in_pdb: path to pdb file
@@ -27,20 +27,27 @@ class Detector(pdm.PDB):
         :param chain_ligand: label with the chain name (of the ligand)
         :type chain_ligand: str
         """
-        pdm.PDB.__init__(self, in_pdb=in_pdb, chain=chain_ligand)
-        self.ligand = self.get_ligand()
+        if not resnum:
+            pdm.PDB.__init__(self, in_pdb=in_pdb, chain=chain)
+            self.selection = self.get_selection()
+        else:
+            pdm.PDB.__init__(self, in_pdb=in_pdb, chain=chain, resnum=resnum)
+            self.selection = self.get_selection(True)
         self.bonds = self.get_bonds()
         self.names_dictionary = self.get_names_dictionary_from_ligand()
         self.bond_to_descend = bond_to_descend  # Must be a tuple
 
-    def get_ligand(self):
+    def get_selection(self, include_res=False):
         """
         Selects the ligand (by the chain) and return it.
         :return:
         """
         prody_pdb = prody.parsePDB(self.in_pdb)
-        ligand = prody_pdb.select("chain {}".format(self.chain))
-        return ligand
+        if not include_res:
+            selection = prody_pdb.select("chain {}".format(self.chain))
+        else:
+            selection = prody_pdb.select("chain {} and resnum {}".format(self.chain, self.resnum))
+        return selection
 
     def extract_ligand(self, path):
         """
@@ -48,7 +55,7 @@ class Detector(pdm.PDB):
         :param path: path to write the ligand.
         :return:
         """
-        prody.writePDB(path, self.ligand)
+        prody.writePDB(path, self.selection)
 
     def tmp_ligand(self):
         """
@@ -175,7 +182,7 @@ def remove_tmp_folder():
     shutil.rmtree("tmp")
 
 
-def main(pdb_complex, bond_to_descend, chain_ligand="L"):
+def main(pdb_complex, bond_to_descend, chain="L", resnum=None):
     """
     Returns the pdb atom names of the atoms that goes after the selected bond (bond_to_descend).
     :param pdb_complex: path to the pdb complex
@@ -187,7 +194,7 @@ def main(pdb_complex, bond_to_descend, chain_ligand="L"):
     :return: list of pdb atom names after the selected bond
     """
     atoms_in_tree = []
-    to_detect = Detector(in_pdb=pdb_complex, bond_to_descend=bond_to_descend, chain_ligand=chain_ligand)
+    to_detect = Detector(in_pdb=pdb_complex, bond_to_descend=bond_to_descend, chain=chain, resnum=resnum)
     bond_to_descend_indexes = to_detect.bond_names_to_indexes()
     bonds_detected_indexes = to_detect.get_descendent_tree_from_bond(bond_to_descend_indexes)
     for index in bonds_detected_indexes:
