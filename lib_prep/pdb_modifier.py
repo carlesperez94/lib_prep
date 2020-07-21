@@ -127,6 +127,23 @@ class PDB:
                 atoms_of_chain.append(line)
         return atoms_of_chain
 
+    def get_atoms_of_resname(self, sel_resname):
+        atoms_of_resname = []
+        for line in self.read_atoms_section():
+            resname = get_resname_from_line(line).strip()
+            if resname == sel_resname:
+                atoms_of_resname.append(line)
+        return atoms_of_resname
+
+    def get_residue(self, sel_chain, sel_resnum):
+        atoms_of_residue = []
+        for line in self.read_atoms_section():
+            resnum = get_resnum_from_line(line).strip()
+            chain = get_chain_from_line(line).strip()
+            if chain == sel_chain and resnum == sel_resnum:
+                atoms_of_residue.append(line)
+        return atoms_of_residue
+
 
 def get_resname_from_line(line):
     return line[17:20]
